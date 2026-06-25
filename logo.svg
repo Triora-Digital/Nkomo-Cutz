@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 110" fill="none">
+  <!--
+    NKOMO CUTZ LOGO — v3
+    Brand colours derived from the house reference:
+      Terracotta brick:  #B5432A
+      Warm gold:         #C9A84C
+      Charcoal:          #1A1A1A
+      Off-white:         #F5F0EB
+    Mark: Double-blade slash geometry (clipper blade / lineup)
+  -->
+
+  <!-- ── Blade mark ── -->
+  <g transform="translate(6, 12)">
+    <!-- Primary blade shape — terracotta -->
+    <polygon points="0,43 30,1 48,1 18,43 48,85 30,85" fill="#B5432A"/>
+    <!-- Highlight cut -->
+    <polygon points="8,43 30,9 40,9 20,43 40,77 30,77" fill="#1A1A1A"/>
+    <!-- Second blade — offset, gold -->
+    <polygon points="20,43 42,9 52,9 32,43 52,77 42,77" fill="#C9A84C" opacity="0.7"/>
+    <!-- Thin third line — white -->
+    <polygon points="34,43 50,16 55,16 40,43 55,70 50,70" fill="#F5F0EB" opacity="0.25"/>
+  </g>
+
+  <!-- ── NKOMO wordmark ── -->
+  <text
+    x="76" y="48"
+    font-family="'Bebas Neue', 'Impact', sans-serif"
+    font-size="46"
+    letter-spacing="3"
+    fill="#F5F0EB"
+  >NKOMO</text>
+
+  <!-- ── CUTZ — terracotta gold ── -->
+  <text
+    x="76" y="90"
+    font-family="'Bebas Neue', 'Impact', sans-serif"
+    font-size="46"
+    letter-spacing="3"
+    fill="#B5432A"
+  >CUTZ</text>
+
+  <!-- Hairline rule -->
+  <line x1="76" y1="55" x2="334" y2="55" stroke="#C9A84C" stroke-width="0.7" opacity="0.5"/>
+
+  <!-- Tagline -->
+  <text
+    x="78" y="102"
+    font-family="'Inter', Helvetica, sans-serif"
+    font-size="7.5"
+    font-weight="600"
+    letter-spacing="3.5"
+    fill="#9E8E7E"
+  >SHARP · CLEAN · $20 · SYDNEY</text>
+</svg>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services & Pricing — Nkomo Cutz</title>
+  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/style.css" />
+  <style>
+    .price-banner { background:var(--brick); padding:18px var(--gutter); text-align:center; }
+    .price-banner p { font-family:var(--font-display); font-size:clamp(16px,3vw,24px); letter-spacing:0.12em; color:var(--white); }
+
+    #sf { padding:var(--section-pad) 0; background:var(--black); }
+    .sf-head { margin-bottom:52px; }
+    .sf-head .display { margin-top:14px; }
+    .sf-sub { margin-top:14px; font-size:16px; font-weight:300; color:var(--white-dim); max-width:520px; line-height:1.75; }
+
+    .sf-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); }
+    .sf-card { background:var(--surface-2); padding:42px 30px; position:relative; overflow:hidden; transition:background 0.25s; }
+    .sf-card:hover { background:var(--surface-3); }
+    .sf-card::before { content:''; position:absolute; top:0; left:0; width:2px; height:0; background:var(--brick); transition:height 0.4s var(--ease-out); }
+    .sf-card:hover::before { height:100%; }
+    .sf-slash { position:absolute; top:14px; right:18px; font-family:var(--font-display); font-size:78px; color:rgba(181,67,42,0.05); line-height:1; pointer-events:none; transition:color 0.3s; }
+    .sf-card:hover .sf-slash { color:rgba(181,67,42,0.1); }
+    .sf-icon { width:42px; height:42px; border:1px solid var(--border-warm); border-radius:var(--radius); display:flex; align-items:center; justify-content:center; margin-bottom:20px; font-size:19px; transition:border-color 0.3s,background 0.3s; }
+    .sf-card:hover .sf-icon { border-color:var(--brick); background:var(--brick-dim); }
+    .sf-name { font-family:var(--font-display); font-size:30px; letter-spacing:0.04em; margin-bottom:8px; }
+    .sf-desc { font-size:13.5px; color:var(--white-dim); line-height:1.65; margin-bottom:26px; }
+    .sf-includes { display:flex; flex-direction:column; gap:6px; margin-bottom:28px; }
+    .sf-includes li { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--white-dim); }
+    .sf-includes li::before { content:'—'; color:var(--brick); font-size:11px; flex-shrink:0; }
+    .sf-price { font-family:var(--font-display); font-size:44px; color:var(--gold); letter-spacing:0.02em; line-height:1; }
+    .sf-price sub { font-family:var(--font-body); font-size:12px; font-weight:500; color:var(--silver); }
+    .sf-opt { display:inline-block; margin-top:8px; font-size:9.5px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--silver); border:1px solid var(--border); padding:4px 10px; border-radius:var(--radius); }
+
+    #clarity { padding:var(--section-pad) 0; background:var(--surface-2); }
+    .clarity-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .clarity-text .display { margin:14px 0 22px; }
+    .clarity-text p { font-size:16px; font-weight:300; color:var(--white-dim); line-height:1.85; margin-bottom:14px; }
+    .clarity-table { background:var(--surface); border:1px solid var(--border); overflow:hidden; }
+    .clarity-row { display:grid; grid-template-columns:1fr 1fr 1fr; border-bottom:1px solid var(--border); }
+    .clarity-row:last-child { border-bottom:none; }
+    .clarity-cell { padding:15px 18px; font-size:13.5px; border-right:1px solid var(--border); }
+    .clarity-cell:last-child { border-right:none; }
+    .clarity-cell.hd { font-size:10px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--brick); background:rgba(181,67,42,0.04); }
+    .clarity-cell.nk { color:var(--gold); font-family:var(--font-display); font-size:18px; }
+    .clarity-cell.oth { color:var(--silver); }
+
+    #faq { padding:var(--section-pad) 0; background:var(--black); }
+    .faq-head { margin-bottom:44px; }
+    .faq-head .display { margin-top:14px; }
+    .faq-list { display:flex; flex-direction:column; gap:1px; background:var(--border); }
+    .faq-item { background:var(--surface); cursor:pointer; }
+    .faq-q { display:flex; align-items:center; justify-content:space-between; padding:20px 26px; font-size:15px; font-weight:500; transition:color 0.2s; gap:16px; }
+    .faq-q:hover { color:var(--brick); }
+    .faq-icon { width:22px; height:22px; border:1px solid var(--border); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:16px; color:var(--brick); transition:transform 0.3s,background 0.2s; }
+    .faq-item.open .faq-icon { transform:rotate(45deg); background:var(--brick-dim); border-color:var(--brick); }
+    .faq-a { max-height:0; overflow:hidden; transition:max-height 0.4s var(--ease-io); }
+    .faq-a-inner { padding:0 26px 20px; font-size:14px; font-weight:300; color:var(--white-dim); line-height:1.8; }
+    .faq-item.open .faq-a { max-height:200px; }
+
+    @media(max-width:820px){ .sf-grid{grid-template-columns:1fr 1fr;} .clarity-grid{grid-template-columns:1fr;} }
+    @media(max-width:480px){ .sf-grid{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+  <nav id="navbar">
+    <a href="../index.html" class="nav-logo"><img src="../assets/logo.svg" alt="Nkomo Cutz" /></a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li><li><a href="about.html">About</a></li>
+      <li><a href="services.html" class="active">Services</a></li><li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="https://your-booking-link.com" target="_blank" class="nav-book">Book Now</a></li>
+    </ul>
+    <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a>
+    <a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
+    <a href="https://your-booking-link.com" target="_blank" class="m-book">Book — $20</a>
+  </div>
+
+  <header class="page-header">
+    <div class="page-header-inner container">
+      <div class="eyebrow eyebrow-center reveal">Services & Pricing</div>
+      <h1 class="display reveal d1">EVERY CUT.<br/><span class="brick">ONE PRICE.</span></h1>
+      <p class="reveal d2">No tiers. No hidden fees. Every service on the menu is $20 — full stop.</p>
+    </div>
+  </header>
+
+  <div class="price-banner">
+    <p>NO CONFUSION. NO CRAZY PRICES. JUST CLEAN CUTS FOR $20. ◆ ALL CUTS · ALL STYLES · ALL DAY</p>
+  </div>
+
+  <section id="sf">
+    <div class="container">
+      <div class="sf-head">
+        <div class="eyebrow reveal">What We Offer</div>
+        <h2 class="display reveal d1">PICK YOUR<br/><span class="brick">STYLE.</span></h2>
+        <p class="sf-sub reveal d2">Whatever you're going for — the price stays the same. Clean cut, $20, done.</p>
+      </div>
+      <div class="sf-grid">
+        <div class="sf-card reveal d1">
+          <div class="sf-slash">/</div>
+          <div class="sf-icon">◈</div>
+          <div class="sf-name">FADE</div>
+          <p class="sf-desc">The signature cut. Skin, low, mid, or high — blended smooth with zero patchiness.</p>
+          <ul class="sf-includes"><li>Skin, low, mid, or high fade</li><li>Clean blend top to neckline</li><li>Hot towel finish</li></ul>
+          <div class="sf-price">$20 <sub>flat</sub></div>
+        </div>
+        <div class="sf-card reveal d2">
+          <div class="sf-slash">/</div>
+          <div class="sf-icon">✦</div>
+          <div class="sf-name">TAPER</div>
+          <p class="sf-desc">Classic taper with a clean, shaped neckline. Timeless and professional.</p>
+          <ul class="sf-includes"><li>Natural taper cut</li><li>Blocked or tapered neckline</li><li>Product finish</li></ul>
+          <div class="sf-price">$20 <sub>flat</sub></div>
+        </div>
+        <div class="sf-card reveal d3">
+          <div class="sf-slash">/</div>
+          <div class="sf-icon">◉</div>
+          <div class="sf-name">BUZZ CUT</div>
+          <p class="sf-desc">Clean all-over length with precision edges. Low maintenance, high impact.</p>
+          <ul class="sf-includes"><li>All-over clipper cut</li><li>Even blend throughout</li><li>Edge-up included</li></ul>
+          <div class="sf-price">$20 <sub>flat</sub></div>
+        </div>
+        <div class="sf-card reveal d1">
+          <div class="sf-slash">/</div>
+          <div class="sf-icon">|</div>
+          <div class="sf-name">LINE UP</div>
+          <p class="sf-desc">Temple-to-temple edge work. Hairline, temples, neckline — shaped to perfection.</p>
+          <ul class="sf-includes"><li>Full edge-up</li><li>Hairline & neckline precision</li><li>Straight razor detailing</li></ul>
+          <div class="sf-price">$20 <sub>flat</sub></div>
+        </div>
+        <div class="sf-card reveal d2">
+          <div class="sf-slash">/</div>
+          <div class="sf-icon">★</div>
+          <div class="sf-name">KIDS CUT</div>
+          <p class="sf-desc">Same quality, same care, same price for the young ones. Any style, zero fuss.</p>
+          <ul class="sf-includes"><li>Age 12 and under</li><li>Patient, comfortable service</li><li>Any style, same $20</li></ul>
+          <div class="sf-price">$20 <sub>flat</sub></div>
+        </div>
+        <div class="sf-card reveal d3">
+          <div class="sf-slash">/</div>
+          <div class="sf-icon">◐</div>
+          <div class="sf-name">BEARD SHAPE</div>
+          <p class="sf-desc">Defined lines, clean edges, structured shape to frame your face perfectly.</p>
+          <ul class="sf-includes"><li>Straight razor line work</li><li>Neck & cheek shaping</li><li>Hot towel treatment</li></ul>
+          <div class="sf-price">$20 <sub>flat</sub></div>
+          <span class="sf-opt">Ask on booking</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="clarity">
+    <div class="container">
+      <div class="clarity-grid">
+        <div class="clarity-text reveal from-left">
+          <div class="eyebrow">Why $20?</div>
+          <h2 class="display">FAIR PRICE.<br/><span class="brick">REAL VALUE.</span></h2>
+          <p>Most shops in Sydney charge $35–$65 for a standard fade. Some inflate prices based on hair type or style.</p>
+          <p>At Nkomo Cutz it's $20 because that's what a clean cut should cost — and because respect for your wallet is part of the service.</p>
+          <a href="contact.html" class="btn btn-primary" style="margin-top:26px;">Book for $20</a>
+        </div>
+        <div class="clarity-table reveal from-right">
+          <div class="clarity-row">
+            <div class="clarity-cell hd">Service</div>
+            <div class="clarity-cell hd">Nkomo Cutz</div>
+            <div class="clarity-cell hd">Sydney Avg.</div>
+          </div>
+          <div class="clarity-row"><div class="clarity-cell">Fade</div><div class="clarity-cell nk">$20</div><div class="clarity-cell oth">$35–$55</div></div>
+          <div class="clarity-row"><div class="clarity-cell">Taper</div><div class="clarity-cell nk">$20</div><div class="clarity-cell oth">$30–$50</div></div>
+          <div class="clarity-row"><div class="clarity-cell">Line Up</div><div class="clarity-cell nk">$20</div><div class="clarity-cell oth">$15–$30</div></div>
+          <div class="clarity-row"><div class="clarity-cell">Beard</div><div class="clarity-cell nk">$20</div><div class="clarity-cell oth">$20–$40</div></div>
+          <div class="clarity-row"><div class="clarity-cell">Kids Cut</div><div class="clarity-cell nk">$20</div><div class="clarity-cell oth">$20–$35</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="container">
+      <div class="faq-head">
+        <div class="eyebrow reveal">Questions?</div>
+        <h2 class="display reveal d1">WE KEEP IT<br/><span class="brick">STRAIGHT.</span></h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item"><div class="faq-q">Is it really $20 for every cut?<span class="faq-icon">+</span></div><div class="faq-a"><div class="faq-a-inner">Yes. Every cut on the menu is $20, no exceptions — no price changes based on hair type, length, or style.</div></div></div>
+        <div class="faq-item"><div class="faq-q">Do I need to book in advance?<span class="faq-icon">+</span></div><div class="faq-a"><div class="faq-a-inner">Booking ahead is strongly recommended — slots fill fast. Book online or DM on Instagram to lock in your time.</div></div></div>
+        <div class="faq-item"><div class="faq-q">Where exactly is the shop?<span class="faq-icon">+</span></div><div class="faq-a"><div class="faq-a-inner">13 Marjorie Close, Sydney NSW. It's a garage barbershop — look for the cream roller door and the red brick paving.</div></div></div>
+        <div class="faq-item"><div class="faq-q">How long does a cut take?<span class="faq-icon">+</span></div><div class="faq-a"><div class="faq-a-inner">Most cuts take 30–45 minutes depending on style. We don't rush — your cut gets the time it needs.</div></div></div>
+        <div class="faq-item"><div class="faq-q">Do you take walk-ins?<span class="faq-icon">+</span></div><div class="faq-a"><div class="faq-a-inner">Walk-ins are welcome when slots are available but booking ahead guarantees your spot.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:var(--section-pad) 0; background:var(--surface-2); text-align:center;">
+    <div class="container">
+      <div class="eyebrow eyebrow-center reveal">Ready?</div>
+      <h2 class="display reveal d1" style="margin:14px 0 18px;">BOOK YOUR<br/><span class="brick">$20 CUT.</span></h2>
+      <p class="reveal d2" style="color:var(--white-dim);font-size:16px;font-weight:300;margin-bottom:32px;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.75;">Slots fill fast. Lock yours in — no stress, no hidden fees.</p>
+      <div class="reveal d3">
+        <a href="https://your-booking-link.com" target="_blank" class="btn btn-primary">
+          Book Now — $20 Flat
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div><img src="../assets/logo.svg" alt="Nkomo Cutz" class="footer-logo" /><p class="footer-tagline">Premium garage barbershop cuts for $20.</p>
+        <div class="footer-socials">
+          <a href="https://instagram.com/your-handle" target="_blank" class="social-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.3" fill="currentColor"/></svg></a>
+          <a href="https://tiktok.com/@your-handle" target="_blank" class="social-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg></a>
+        </div>
+      </div>
+      <div><div class="footer-col-label">Navigate</div>
+        <ul class="footer-col-links"><li><a href="../index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li></ul>
+      </div>
+      <div><div class="footer-col-label">Book</div>
+        <ul class="footer-col-links"><li><a href="https://your-booking-link.com" target="_blank">Book Online — $20</a></li><li><a href="tel:+610000000000">+61 (0) 000 000 000</a></li><li><a href="https://maps.google.com/?q=13+Marjorie+Close+Sydney+NSW" target="_blank">13 Marjorie Close, Sydney</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><p class="footer-copy">© 2025 Nkomo Cutz.</p><p class="footer-made">Built for the culture. 🇦🇺</p></div>
+  </footer>
+  <script src="../assets/main.js"></script>
+  <script>
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.querySelector('.faq-q').addEventListener('click', () => {
+        const open = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!open) item.classList.add('open');
+      });
+    });
+  </script>
+</body>
+</html>
